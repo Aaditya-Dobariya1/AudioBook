@@ -13,7 +13,6 @@ import SushrutSamhita from './components/SushrutSamhita';
 
 
 function App() {
-  console.log("Hello")
   return (
     <Router>
       <Routes>
