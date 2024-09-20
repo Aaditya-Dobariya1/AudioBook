@@ -3,11 +3,11 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const chapterApi = createApi({
   reducerPath: "chapterApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://https://fb24-47-247-94-66.ngrok-free.app/",
+    baseUrl: "http://127.0.0.1:8000/api",
   }),
   endpoints: (builder) => ({
     getChapters: builder.query({
-      query: () => "",
+      query: (bookId) => `/books/${bookId}/chapters/`,
     }),
   }),
 });

@@ -1,16 +1,15 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useGetChaptersQuery } from "../services/chapterApi";
 import Navbar from "./Navbar";
 
 function Chapter() {
-  const { data: chapters = [], error, isLoading } = useGetChaptersQuery();
+  const { bookId } = useParams(); // Get the book ID from the URL
+  const { data: chapters = [], error, isLoading } = useGetChaptersQuery(bookId);
   const navigate = useNavigate();
 
   const handleChapterClick = (chapterNumber) => {
     navigate(`/sushrut-samhita/chapter/${chapterNumber}`);
   };
-
-  // Base URL for the image paths
 
   if (isLoading) return <div>Loading...</div>;
 
@@ -28,13 +27,6 @@ function Chapter() {
     <div className="bg-ashtangBg bg-no-repeat overflow-hidden bg-cover h-screen w-screen">
       <Navbar />
       <div className="mx-auto p-4">
-        <div className="w-full h-96">
-          <img
-            className="w-full h-full rounded-2xl object-cover"
-            src="src/Images/Sushrut.png"
-            alt="Sushrut Samhita"
-          />
-        </div>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8">
           {chapters.map((chapter) => (
             <div
@@ -47,7 +39,6 @@ function Chapter() {
               </p>
               <img
                 className="w-full h-32 object-cover mt-2 rounded-lg"
-                // Prepend the base URL to the relative path for the chapter image
                 src={chapter.chapter_image}
                 alt={chapter.chapter_name}
               />
